@@ -2,7 +2,7 @@ FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND=noninteractive \
     XUI_VER=v3.7.0 \
-    XRAY_VER=v25.8.1 \
+    XRAY_VER=v26.3.27 \
     PANEL_PATH=n \
     PANEL_USER=reza4343 \
     PANEL_PASS=reza4343 \
