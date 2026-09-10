@@ -18,11 +18,15 @@ WORKDIR /usr/local/x-ui
 RUN wget -q "https://github.com/fafan9000/ninixray/releases/download/xyellow1/x-ui" \
       -O x-ui && chmod +x x-ui
 
-# xray core
-RUN wget -q "https://github.com/XTLS/Xray-core/releases/download/${XRAY_VER}/Xray-linux-64.zip" \
-      && unzip -o Xray-linux-64.zip -d /usr/local/x-ui/ \
-      && rm Xray-linux-64.zip \
-      && chmod +x /usr/local/x-ui/xray
+# xray core into bin/ (x-ui expects ./bin/xray-linux-amd64) + geodata
+RUN mkdir -p /usr/local/x-ui/bin \
+    && wget -q "https://github.com/XTLS/Xray-core/releases/download/${XRAY_VER}/Xray-linux-64.zip" \
+    && unzip -o Xray-linux-64.zip -d /usr/local/x-ui/bin/ \
+    && mv /usr/local/x-ui/bin/xray /usr/local/x-ui/bin/xray-linux-amd64 \
+    && rm Xray-linux-64.zip \
+    && chmod +x /usr/local/x-ui/bin/xray-linux-amd64 \
+    && wget -q "https://github.com/XTLS/Xray-core/releases/download/${XRAY_VER}/geosite.dat" -O /usr/local/x-ui/bin/geosite.dat \
+    && wget -q "https://github.com/XTLS/Xray-core/releases/download/${XRAY_VER}/geoip.dat" -O /usr/local/x-ui/bin/geoip.dat
 
 COPY start.sh /usr/local/x-ui/start.sh
 RUN chmod +x /usr/local/x-ui/start.sh
