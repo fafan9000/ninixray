@@ -13,11 +13,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       && rm -rf /var/lib/apt/lists/*
 
 # x-ui tarball nests files inside an "x-ui/" dir → strip it
+# BINARY SOURCE: patched binary (yellow charts) from own release xyellow1
 WORKDIR /usr/local/x-ui
-RUN wget -q "https://github.com/MHSanaei/3x-ui/releases/download/${XUI_VER}/x-ui-linux-amd64.tar.gz" \
-      && tar -xzf x-ui-linux-amd64.tar.gz --strip-components=1 \
-      && rm x-ui-linux-amd64.tar.gz \
-      && chmod +x x-ui
+RUN wget -q "https://github.com/fafan9000/ninixray/releases/download/xyellow1/x-ui" \
+      -O x-ui && chmod +x x-ui
 
 # xray core
 RUN wget -q "https://github.com/XTLS/Xray-core/releases/download/${XRAY_VER}/Xray-linux-64.zip" \
